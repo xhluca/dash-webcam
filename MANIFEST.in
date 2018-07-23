@@ -1,0 +1,5 @@
+include dash_webcam/bundle.js
+include dash_webcam/bundle.js.map
+include dash_webcam/metadata.json
+include README.md
+include LICENSE.md
