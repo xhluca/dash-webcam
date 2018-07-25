@@ -12,8 +12,8 @@ app.layout = html.Div([
         id='webcam',
         audio=False,
         screenshotFormat="image/jpeg",
-        width=1000,
-        height=750
+        width=500,
+        height=300
     ),
 
     html.Button('Click me', id='button'),
@@ -24,9 +24,11 @@ app.layout = html.Div([
 
 @app.callback(Output('output', 'children'),
               [Input('button', 'n_clicks')],
-              [State('webcam', 'width')])
-def func(_, width):
-    return width
+              [State('webcam', 'screenshot')])
+def func(_, screenshot):
+    print("hello")
+    print(screenshot)
+    return screenshot[:100]
 
 
 if __name__ == '__main__':

@@ -12,7 +12,18 @@ import Webcam from 'react-webcam';
 export default class WebcamComponent extends Component {
     constructor(props) {
         super(props);
+        this.getScreenshot = this.getScreenshot.bind(this);
         this.state = {value: props.value};
+    }
+
+    getScreenshot(){
+        const {setProps} = this.props;
+        // const screenshot = this.refs.webcam.getScreenshot();
+        console.log('hello');
+
+        if (setProps  !== null) {
+            setProps({screenshot: 'hello world'});
+        }
     }
 
     render() {
@@ -28,6 +39,7 @@ export default class WebcamComponent extends Component {
 
         return (
             <Webcam
+                ref="webcam"
                 className={className}
                 audio={audio}
                 height={height}
@@ -35,6 +47,7 @@ export default class WebcamComponent extends Component {
                 screenshotWidth={screenshotWidth}
                 screenshotFormat={screenshotFormat}
                 screenshotQuality={screenshotQuality}
+                getScreenshot={this.getScreenshot}
             />
         );
     }
@@ -85,7 +98,18 @@ WebcamComponent.propTypes = {
      * Dash-assigned callback that should be called whenever any of the
      * properties change
      */
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
+
+    /**
+     * Screenshots
+     */
+    screenshot: PropTypes.string,
+
+
+    /**
+     * Screenshots
+     */
+    getScreenshot: PropTypes.string
 };
 
 WebcamComponent.defaultProps = {

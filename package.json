@@ -20,8 +20,6 @@
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist upload",
     "start": "builder run build-dev",
-    "test": "builder run check",
-    "test-watch": "builder run test-frontend-watch",
     "test-debug": "builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-webcam -y"
   },
