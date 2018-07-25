@@ -18,17 +18,14 @@ app.layout = html.Div([
 
     html.Button('Click me', id='button'),
 
-    html.Div(id='output')
+    html.Img(id='output')
 ])
 
 
-@app.callback(Output('output', 'children'),
-              [Input('button', 'n_clicks')],
-              [State('webcam', 'screenshot')])
-def func(_, screenshot):
-    print("hello")
-    print(screenshot)
-    return screenshot[:100]
+@app.callback(Output('output', 'src'),
+              [Input('webcam', 'screenshot')])
+def func(screenshot):
+    return screenshot
 
 
 if __name__ == '__main__':

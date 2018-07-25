@@ -14,15 +14,20 @@ export default class WebcamComponent extends Component {
         super(props);
         this.getScreenshot = this.getScreenshot.bind(this);
         this.state = {value: props.value};
+        this.myTimer = this.myTimer.bind(this);
+        this.myVar = setInterval(this.myTimer, 50);
+    }
+
+    myTimer() {
+        this.getScreenshot()
     }
 
     getScreenshot(){
         const {setProps} = this.props;
-        // const screenshot = this.refs.webcam.getScreenshot();
-        console.log('hello');
+        const currScreenshot = this.refs.webcam.getScreenshot();
 
         if (setProps  !== null) {
-            setProps({screenshot: 'hello world'});
+            setProps({screenshot: currScreenshot});
         }
     }
 
@@ -47,7 +52,7 @@ export default class WebcamComponent extends Component {
                 screenshotWidth={screenshotWidth}
                 screenshotFormat={screenshotFormat}
                 screenshotQuality={screenshotQuality}
-                getScreenshot={this.getScreenshot}
+                // getScreenshot={{screenshot: this.refs.webcam.getScreenshot()}}
             />
         );
     }
