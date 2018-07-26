@@ -8,23 +8,29 @@ app = dash.Dash('')
 app.scripts.config.serve_locally = True
 
 app.layout = html.Div([
-    dash_webcam.WebcamComponent(
-        id='webcam',
-        audio=False,
-        screenshotFormat="image/jpeg",
-        width=500,
-        height=300
-    ),
+    html.Div(className='row', children=[
+        html.P('Original Footage:'),
 
-    html.Button('Click me', id='button'),
+        dash_webcam.WebcamComponent(
+            id='webcam',
+            audio=False,
+            screenshotFormat="image/jpeg",
+            width=500,
+            height=300
+        )
+    ]),
 
-    html.Img(id='output')
+    html.Div(className='row', children=[
+        html.P('Returned Footage:'),
+        html.Img(id='output')
+    ])
+
 ])
 
 
 @app.callback(Output('output', 'src'),
               [Input('webcam', 'screenshot')])
-def func(screenshot):
+def show_screenshot_image(screenshot):
     return screenshot
 
 

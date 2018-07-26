@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ExampleComponent} from '../src';
+import {WebcamComponent} from '../src';
 
 class Demo extends Component {
     constructor() {
@@ -15,12 +15,8 @@ class Demo extends Component {
                 <h1>dash-webcam Demo</h1>
 
                 <hr/>
-                <h2>ExampleComponent</h2>
-                <ExampleComponent
-                    label="This is an example label"
-                    value={this.state.value}
-                    setProps={newProps => this.setState({value: newProps.value})}
-                />
+                <h2>Webcam Component</h2>
+                <WebcamComponent />
                 <hr/>
             </div>
         );
