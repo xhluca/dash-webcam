@@ -12,14 +12,10 @@ import Webcam from 'react-webcam';
 export default class WebcamComponent extends Component {
     constructor(props) {
         super(props);
-        this.getScreenshot = this.getScreenshot.bind(this);
         this.state = {value: props.value};
-        this.myTimer = this.myTimer.bind(this);
-        this.myVar = setInterval(this.myTimer, 50);
-    }
 
-    myTimer() {
-        this.getScreenshot()
+        this.getScreenshot = this.getScreenshot.bind(this);
+        setInterval(this.getScreenshot, 40);  // 25 FPS
     }
 
     getScreenshot(){
@@ -52,7 +48,6 @@ export default class WebcamComponent extends Component {
                 screenshotWidth={screenshotWidth}
                 screenshotFormat={screenshotFormat}
                 screenshotQuality={screenshotQuality}
-                // getScreenshot={{screenshot: this.refs.webcam.getScreenshot()}}
             />
         );
     }
@@ -100,25 +95,22 @@ WebcamComponent.propTypes = {
     screenshotQuality: PropTypes.number,
 
     /**
-     * Dash-assigned callback that should be called whenever any of the
-     * properties change
-     */
-    setProps: PropTypes.func,
-
-    /**
-     * Screenshots
+     * getScreenshot() returns a base64 encoded string of the current webcam
+     * image. screenshot is the prop updated at fixed interval from calling
+     * getScreenshot(). It is currently capped at 25 fps.
      */
     screenshot: PropTypes.string,
 
-
     /**
-     * Screenshots
+     * Dash-assigned callback that should be called whenever any of the
+     * properties change
      */
-    getScreenshot: PropTypes.string
+    setProps: PropTypes.func
 };
 
 WebcamComponent.defaultProps = {
     audio: true,
+    className: '',
     height: 480,
     width: 640,
     screnshotFormat: 'image/webp',
