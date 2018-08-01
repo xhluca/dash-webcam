@@ -15,7 +15,7 @@ export default class WebcamComponent extends Component {
         this.state = {value: props.value};
 
         this.getScreenshot = this.getScreenshot.bind(this);
-        setInterval(this.getScreenshot, 40);  // 25 FPS
+        this.handleScreenshot = setInterval(this.getScreenshot, 40);  // 25 FPS
     }
 
     getScreenshot(){
@@ -25,6 +25,23 @@ export default class WebcamComponent extends Component {
         if (setProps  !== null) {
             setProps({screenshot: currScreenshot});
         }
+    }
+
+    updateIntervals(prevProps){
+        const {screenshotInterval} = this.props;
+
+        if (this.handleScreenshot === undefined ||
+            prevProps.screenshotInterval !== screenshotInterval){
+            clearInterval(this.handleScreenshot);
+            this.handleScreenshot = setInterval(
+                this.getScreenshot,
+                screenshotInterval
+            );
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        this.updateIntervals(prevProps);
     }
 
     render() {
@@ -95,6 +112,11 @@ WebcamComponent.propTypes = {
     screenshotQuality: PropTypes.number,
 
     /**
+     * update interval of screenshot in milliseconds
+     */
+    screenshotInterval: PropTypes.number,
+
+    /**
      * getScreenshot() returns a base64 encoded string of the current webcam
      * image. screenshot is the prop updated at fixed interval from calling
      * getScreenshot(). It is currently capped at 25 fps.
@@ -114,5 +136,6 @@ WebcamComponent.defaultProps = {
     height: 480,
     width: 640,
     screnshotFormat: 'image/webp',
-    screenshotQuality: 0.92
+    screenshotQuality: 0.92,
+    screenshotInterval: 40
 };
